@@ -17,10 +17,9 @@ pygame.display.set_caption("Space Invader")
 #Jugador
 player = Player(WIDTH//2, HEIGHT -80)
 
-#Enemies
+# Enemigos con Builder
 director = EnemyDirector()
 builder = EnemyBuilder()
-
 enemies = [
     director.construct_enemy(builder, "normal"),
     director.construct_enemy(builder, "fast"),
@@ -53,8 +52,8 @@ while running:
     
     for bullet in bullets[:]:
         bullet.move()
-        if bullet.y < 0:
-            bullet.remove(bullet)
+        if bullet.y < 0:  # Eliminar balas fuera de la pantalla
+            bullets.remove(bullet)
     
     for enemy in enemies[:]:
         enemy.move()
@@ -70,13 +69,14 @@ while running:
     
     enemy_spawn_timer += 1
     enemy_types = ["normal", "fast", "strong"]
-    
-    if enemy_spawn_timer > 100:
+    if enemy_spawn_timer > 30:  # Cada cierto tiempo puede ser 100 al principio 
         random_enemy_type = random.choice(enemy_types)
+        
         enemies.append(director.construct_enemy(builder, random_enemy_type))
         enemy_spawn_timer = 0
     
     player.draw(screen)
+
     for enemy in enemies:
         enemy.draw(screen)
     for bullet in bullets:
