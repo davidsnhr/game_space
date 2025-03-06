@@ -4,7 +4,7 @@ from core.config import Config
 from entities.player import Player
 from builder.director import EnemyDirector
 from builder.enemy_builder import EnemyBuilder
-from src.utils import check_collision
+from utils.collision import check_collision
 
 pygame.init()
 
