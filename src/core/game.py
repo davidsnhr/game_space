@@ -68,9 +68,23 @@ while running:
                 bullets.remove(bullet)
                 break
     
+    enemy_spawn_timer += 1
+    enemy_types = ["normal", "fast", "strong"]
     
+    if enemy_spawn_timer > 100:
+        random_enemy_type = random.choice(enemy_types)
+        enemies.append(director.construct_enemy(builder, random_enemy_type))
+        enemy_spawn_timer = 0
+    
+    player.draw(screen)
+    for enemy in enemies:
+        enemy.draw(screen)
+    for bullet in bullets:
+        bullet.draw(screen)
+    
+    pygame.display.update()
 
-    
+pygame.quit()
     
         
      
